@@ -28,6 +28,13 @@ Simple http service that provides functionality to create routes, send coordinat
     + 201 Created <br>
     + 400 Route with same name already exists <br>
     
+- **DELETE**: */routes* <br>
+  <ins>Description</ins>: Delete the route with all related waypoints <br>
+  <ins>Query params</ins>: routeId:int <br>
+  <ins>Status codes</ins>: <br>
+    + 200 Success <br>
+    + 404 Route with id {routeId} was not found <br>
+    
 ### Waypoints
   - **GET**: */waypoints* <br>
   <ins>Description</ins>: Get waypoints for a route in specified time interval <br>
