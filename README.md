@@ -2,7 +2,7 @@
 Golang labs project
 
 ## Description
-Simple http service that provides functionality to create routes, send coordinates of "current" position, and get info about traveled route (total distance, duration, average speed, etc.)
+Simple http service that provides functionality to create routes, send coordinates of "current" position (waypoints), and get info about traveled route (total distance, duration, average speed, etc.)
 
 ## Endpoints
 ### Routes
@@ -27,6 +27,13 @@ Simple http service that provides functionality to create routes, send coordinat
   <ins>Status codes</ins>: <br>
     + 201 Created <br>
     + 400 Route with same name already exists <br>
+    
+ - **POST**: */routes/complete*<br>
+  <ins>Description</ins>: Complete the route, so new waypoints can't be added. The request is idempotent, it will return success if route is already completed<br>
+  <ins>Query params</ins>: routeId:int <br>
+  <ins>Status codes</ins>: <br>
+    + 200 Success <br>
+    + 404 Route with id {routeId} was not found <br>
     
 - **DELETE**: */routes* <br>
   <ins>Description</ins>: Delete the route with all related waypoints <br>
