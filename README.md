@@ -73,11 +73,56 @@ Simple http service that provides functionality to create routes, send coordinat
 
 ## Dtos
 - RoutePostDto
+```
+{
+  "name": "string"
+}
+```
 - RouteGetDto
+```
+{
+  "id": number,
+  "name": "string"
+}
+```
 - RouteInfoDto
+```
+{
+  "routeId": number,
+  "routeName": "string",
+  "totalDistanceMeters": number, // total distance in meters
+  "averageSpeedMps": number      // average speed in meters per second
+}
+```
 - WaypointGetDto
+```
+{
+  "routeId": number,
+  "x": number,
+  "y": number,
+  "time": "string"
+}
+```
 - WaypointPostDto
+```
+{
+  "routeId": number,
+  "x": number,
+  "y": number
+}
+```
 - TimedWaypointsPostDto
+```
+[
+  "routeId": number,
+  "waypoint": 
+  {
+    "x": number,
+    "y": number,
+    "time": "string"
+  }
+]
+```
 
 ## Data model
 ![image](https://user-images.githubusercontent.com/59698344/217930179-144b1649-307b-4212-9a71-88e44863f8e4.png)
