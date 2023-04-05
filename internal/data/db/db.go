@@ -15,7 +15,9 @@ func Connect(url string) *gorm.DB {
 		log.Fatalln(err)
 	}
 
-	db.AutoMigrate(&model.Track{}, &model.Waypoint{})
-
+	err = db.AutoMigrate(&model.Track{}, &model.Waypoint{})
+	if err != nil {
+		log.Fatalln(err)
+	}
 	return db
 }

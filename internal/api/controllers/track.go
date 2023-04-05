@@ -31,7 +31,7 @@ func AddTrackRoutes(handler *gin.Engine, s interfaces.TrackService) {
 func (r *trackRoutes) getAll(c *gin.Context) {
 	tracks, err := r.s.GetAll()
 	if err != nil {
-		c.Error(err)
+		_ = c.Error(err)
 		return
 	}
 	c.JSON(http.StatusOK, response.Success(tracks))
@@ -47,7 +47,7 @@ func (r *trackRoutes) getInfo(c *gin.Context) {
 
 	info, err := r.s.Getinfo(uint(trackId))
 	if err != nil {
-		c.Error(err)
+		_ = c.Error(err)
 		return
 	}
 	c.JSON(http.StatusOK, response.Success(info))
@@ -56,13 +56,13 @@ func (r *trackRoutes) getInfo(c *gin.Context) {
 func (r *trackRoutes) create(c *gin.Context) {
 	trackPost := dto.TrackPost{}
 	if err := c.BindJSON(&trackPost); err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
+		_ = c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
 
 	track, err := r.s.Create(trackPost)
 	if err != nil {
-		c.Error(err)
+		_ = c.Error(err)
 		return
 	}
 	c.JSON(http.StatusCreated, response.Success(track))
@@ -78,7 +78,7 @@ func (r *trackRoutes) complete(c *gin.Context) {
 
 	err := r.s.Complete(uint(trackId))
 	if err != nil {
-		c.Error(err)
+		_ = c.Error(err)
 		return
 	}
 	c.JSON(http.StatusOK, response.Success[any](nil))
@@ -94,7 +94,7 @@ func (r *trackRoutes) delete(c *gin.Context) {
 
 	err := r.s.Delete(uint(trackId))
 	if err != nil {
-		c.Error(err)
+		_ = c.Error(err)
 		return
 	}
 	c.JSON(http.StatusOK, response.Success[any](nil))

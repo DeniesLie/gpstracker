@@ -1,6 +1,8 @@
 package app
 
 import (
+	"log"
+
 	"github.com/DeniesLie/gpstracker/config"
 	"github.com/DeniesLie/gpstracker/internal/api/controllers"
 	"github.com/DeniesLie/gpstracker/internal/api/middleware"
@@ -26,5 +28,8 @@ func Run(cfg *config.Config) {
 	controllers.AddTrackRoutes(router, trackSvc)
 	controllers.AddWaypointRoutes(router, waypointSvc)
 
-	router.Run(cfg.Port)
+	err := router.Run(cfg.Port)
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
