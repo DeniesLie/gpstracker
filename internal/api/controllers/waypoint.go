@@ -34,7 +34,7 @@ func (r *waypointRoutes) getByTrackId(c *gin.Context) {
 
 	waypoints, err := r.s.GetByTrackId(uint(trackId))
 	if err != nil {
-		c.Error(err)
+		_ = c.Error(err)
 		return
 	}
 	c.JSON(http.StatusOK, response.Success(waypoints))
@@ -43,13 +43,13 @@ func (r *waypointRoutes) getByTrackId(c *gin.Context) {
 func (r *waypointRoutes) addBatch(c *gin.Context) {
 	batch := []dto.WaypointPost{}
 	if err := c.BindJSON(&batch); err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
+		_ = c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
 
 	err := r.s.AddBatch(batch)
 	if err != nil {
-		c.Error(err)
+		_ = c.Error(err)
 		return
 	}
 	c.JSON(http.StatusCreated, response.Success[any](nil))
