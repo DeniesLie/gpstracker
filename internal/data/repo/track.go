@@ -30,7 +30,6 @@ func (r *TrackRepo) GetById(id uint) (t *model.Track, err error) {
 	}
 	if result.Error != nil {
 		err = errors.Wrap(result.Error, "failed at TrackRepo.GetById(), some db error occurred")
-		return
 	}
 	return
 }
