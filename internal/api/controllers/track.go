@@ -8,14 +8,13 @@ import (
 
 	"github.com/DeniesLie/gpstracker/internal/api/controllers/response"
 	"github.com/DeniesLie/gpstracker/internal/core/dto"
-	"github.com/DeniesLie/gpstracker/internal/core/interfaces"
 )
 
 type trackRoutes struct {
-	s interfaces.TrackService
+	s TrackService
 }
 
-func AddTrackRoutes(handler *gin.Engine, s interfaces.TrackService) {
+func AddTrackRoutes(handler *gin.Engine, s TrackService) {
 	r := &trackRoutes{s}
 
 	h := handler.Group("/tracks")

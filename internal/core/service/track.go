@@ -6,7 +6,6 @@ import (
 	"github.com/pkg/errors"
 
 	"github.com/DeniesLie/gpstracker/internal/core/dto"
-	"github.com/DeniesLie/gpstracker/internal/core/interfaces"
 	"github.com/DeniesLie/gpstracker/internal/core/mapper"
 	"github.com/DeniesLie/gpstracker/internal/core/model"
 	"github.com/DeniesLie/gpstracker/internal/core/model/enum"
@@ -14,11 +13,11 @@ import (
 )
 
 type TrackService struct {
-	trackRepo    interfaces.TrackRepo
-	waypointRepo interfaces.WaypointRepo
+	trackRepo    TrackRepo
+	waypointRepo WaypointRepo
 }
 
-func NewTrackService(trackRepo interfaces.TrackRepo, waypointRepo interfaces.WaypointRepo) *TrackService {
+func NewTrackService(trackRepo TrackRepo, waypointRepo WaypointRepo) *TrackService {
 	return &TrackService{trackRepo, waypointRepo}
 }
 

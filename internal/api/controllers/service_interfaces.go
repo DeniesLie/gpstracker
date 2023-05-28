@@ -1,4 +1,4 @@
-package interfaces
+package controllers
 
 import (
 	"github.com/DeniesLie/gpstracker/internal/core/dto"

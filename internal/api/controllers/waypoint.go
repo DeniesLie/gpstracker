@@ -6,15 +6,14 @@ import (
 
 	"github.com/DeniesLie/gpstracker/internal/api/controllers/response"
 	"github.com/DeniesLie/gpstracker/internal/core/dto"
-	"github.com/DeniesLie/gpstracker/internal/core/interfaces"
 	"github.com/gin-gonic/gin"
 )
 
 type waypointRoutes struct {
-	s interfaces.WaypointService
+	s WaypointService
 }
 
-func AddWaypointRoutes(handler *gin.Engine, s interfaces.WaypointService) {
+func AddWaypointRoutes(handler *gin.Engine, s WaypointService) {
 	r := &waypointRoutes{s}
 
 	h := handler.Group("/waypoints")
