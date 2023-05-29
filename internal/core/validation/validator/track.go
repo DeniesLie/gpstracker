@@ -9,7 +9,7 @@ func ValidateTrackPostDto(dto *dto.TrackPost) (isValid bool, err error) {
 	result := validation.Result{IsValid: true}
 	result.Field("name").IsRequired(dto.Name).LengthIsBetween(dto.Name, 1, 100)
 	if !result.IsValid {
-		return false, &validation.ValidationError{Res: result}
+		return false, validation.ValidationError{Res: result}
 	}
 	return true, nil
 }

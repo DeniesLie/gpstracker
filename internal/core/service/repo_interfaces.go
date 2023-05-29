@@ -1,4 +1,4 @@
-package interfaces
+package service
 
 import "github.com/DeniesLie/gpstracker/internal/core/model"
 

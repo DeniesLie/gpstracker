@@ -4,18 +4,17 @@ import (
 	"github.com/pkg/errors"
 
 	"github.com/DeniesLie/gpstracker/internal/core/dto"
-	"github.com/DeniesLie/gpstracker/internal/core/interfaces"
 	"github.com/DeniesLie/gpstracker/internal/core/mapper"
 	"github.com/DeniesLie/gpstracker/internal/core/model/enum"
 	"github.com/DeniesLie/gpstracker/internal/core/validation/validator"
 )
 
 type WaypointService struct {
-	waypointRepo interfaces.WaypointRepo
-	trackRepo    interfaces.TrackRepo
+	waypointRepo WaypointRepo
+	trackRepo    TrackRepo
 }
 
-func NewWaypointService(waypointRepo interfaces.WaypointRepo, trackRepo interfaces.TrackRepo) *WaypointService {
+func NewWaypointService(waypointRepo WaypointRepo, trackRepo TrackRepo) *WaypointService {
 	return &WaypointService{waypointRepo, trackRepo}
 }
 
