@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"errors"
 	"net/http"
 
 	"github.com/DeniesLie/gpstracker/internal/api/controllers/response"
@@ -13,22 +12,23 @@ import (
 // https://stackoverflow.com/questions/69948784/how-to-handle-errors-in-gin-middleware
 func ErrorHandler(c *gin.Context) {
 	c.Next()
-	err := c.Errors.Last()
+	ginErr := c.Errors.Last()
 
-	if err != nil {
-		notFoundErr := &service.NotFoundError{}
-		validationErr := &validation.ValidationError{}
-		businessErr := &service.BusinessError{}
+	if ginErr != nil {
+		err := ginErr.Err
+		_, isNotFoundErr := err.(service.NotFoundError)
+		_, isValidationErr := err.(validation.ValidationError)
+		_, isBusinessErr := err.(service.BusinessError)
 
 		switch {
-		case errors.As(err, notFoundErr):
+		case isNotFoundErr:
 			c.JSON(http.StatusNotFound, response.Error(response.NotFoundMessage))
 
-		case errors.As(err, validationErr):
-			c.JSON(http.StatusBadRequest, response.InvalidData(validationErr.Res))
+		case isValidationErr:
+			c.JSON(http.StatusBadRequest, response.InvalidData(err.Error()))
 
-		case errors.As(err, businessErr):
-			c.JSON(http.StatusBadRequest, response.Error(businessErr.Message))
+		case isBusinessErr:
+			c.JSON(http.StatusBadRequest, response.Error(err.Error()))
 
 		default:
 			c.JSON(http.StatusInternalServerError, "Internal Server Error")

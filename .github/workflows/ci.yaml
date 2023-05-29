@@ -17,9 +17,6 @@ jobs:
 
       - name: Build
         run: go build -v ./...
-
-      - name: Test
-        run: go test -v ./...
       
   lint:
     name: lint
@@ -32,3 +29,62 @@ jobs:
         with:
           version: latest
           args: --timeout 3m
+
+  unit-tests:
+    name: unit tests
+    runs-on: ubuntu-latest  
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@master
+        with:
+          go-version: 1.20.0
+      - name: "unit tests"
+        run: go test ./... -tags=unit_test -cover
+
+  db-integration-tests:
+    name: db integration tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: gps_tracker_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@master
+        with:
+          go-version: 1.20.0
+      - name: "db integration tests"
+        run: go test ./... -tags=db_integration_test
+
+  api-integration-tests:
+    name: api integration tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: gps_tracker_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@master
+        with:
+          go-version: 1.20.0
+      - name: "api integration tests"
+        run: go test ./... -tags=api_integration_test
